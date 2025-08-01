@@ -6,6 +6,7 @@ import logger from './utils/logger';
 import { errorHandler, notFound } from './middleware/errorHandler';
 import { apiLimiter } from './middleware/rateLimiting';
 import authRoutes from './routes/authRoutes';
+import protectedRoutes from './routes/protectedRoutes';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -42,6 +43,7 @@ app.get('/api', (req, res) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/protected', protectedRoutes);
 
 // Error handling middleware
 app.use(notFound);
