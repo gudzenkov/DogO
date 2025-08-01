@@ -136,14 +136,15 @@
   - **Dependencies**: AUTH-001
   - **Completed**: 2025-08-01
 
-- **AUTH-004**: Role-based access control (RBAC)
+- **AUTH-004**: Role-based access control (RBAC) ✅ **COMPLETED**
   - **Story Points**: 5
   - **Priority**: P0
   - **Acceptance Criteria**:
-    - Middleware for role checking
-    - Support for Owner, Trainer, Admin roles
-    - Route protection based on roles
+    - ✅ Middleware for role checking
+    - ✅ Support for Owner, Trainer, Admin roles
+    - ✅ Route protection based on roles
   - **Dependencies**: AUTH-001
+  - **Completed**: 2025-08-01
 
 ### Frontend Tasks
 - **AUTH-005**: Login/Register forms
