@@ -9,7 +9,7 @@ Before starting any task, Claude should review these key documents:
 - **BACKLOG.md**: Development tasks, priorities, and sprint planning
 
 ## Workflow Guidelines
-- Once each task is complete, update @BACKLOG.md and commit changes with backlog task ID prefix
+- Once each individual task is complete, update @BACKLOG.md and commit changes separate for each backlog task ID
 
 ## Project Overview
 DogO is a dog obedience training platform that connects dog owners with professional trainers for structured online training. This is currently in the planning phase with no code implementation yet.
