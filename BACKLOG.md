@@ -126,14 +126,15 @@
   - **Dependencies**: AUTH-001
   - **Completed**: 2025-08-01
 
-- **AUTH-003**: User login endpoint
+- **AUTH-003**: User login endpoint ✅ **COMPLETED**
   - **Story Points**: 3
   - **Priority**: P0
   - **Acceptance Criteria**:
-    - POST /api/auth/login endpoint
-    - Return JWT tokens on success
-    - Rate limiting (5 attempts per 15 minutes)
+    - ✅ POST /api/auth/login endpoint
+    - ✅ Return JWT tokens on success
+    - ✅ Rate limiting (5 attempts per 15 minutes)
   - **Dependencies**: AUTH-001
+  - **Completed**: 2025-08-01
 
 - **AUTH-004**: Role-based access control (RBAC)
   - **Story Points**: 5
