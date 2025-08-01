@@ -4,7 +4,7 @@
 
 | Epic | Priority | Phase | Story Points | Status |
 |------|----------|-------|--------------|--------|
-| Project Foundation & Setup | P0 | 1 | 21 | In Progress |
+| Project Foundation & Setup | P0 | 1 | 26 | In Progress |
 | Authentication & User Management | P0 | 1-2 | 34 | Not Started |
 | Lesson Management System | P0 | 2 | 52 | Not Started |
 | Progress Tracking System | P0 | 2 | 34 | Not Started |
@@ -13,12 +13,12 @@
 | Analytics & Reporting | P2 | 3-4 | 21 | Not Started |
 | Payment & Subscription System | P3 | 4 | 21 | Not Started |
 
-**Total Story Points**: 249
+**Total Story Points**: 254
 
 ---
 
 ## EPIC 1: Project Foundation & Setup
-**Priority**: P0 | **Phase**: 1 | **Story Points**: 21
+**Priority**: P0 | **Phase**: 1 | **Story Points**: 26
 
 ### Infrastructure Setup
 - **PROJ-001**: Initialize React TypeScript project with Vite ✅ **COMPLETED**
@@ -81,6 +81,17 @@
     - ✅ Health check endpoints
   - **Dependencies**: PROJ-002
   - **Completed**: 2025-08-01
+
+- **PROJ-007**: Create landing page
+  - **Story Points**: 5
+  - **Priority**: P0
+  - **Acceptance Criteria**:
+    - Hero section with compelling value proposition
+    - Feature highlights for dog owners and trainers
+    - Call-to-action buttons for registration
+    - Responsive design with mobile-first approach
+    - Basic SEO optimization (meta tags, structured data)
+  - **Dependencies**: PROJ-001
 
 ---
 
@@ -472,9 +483,9 @@
 ## Sprint Planning Recommendations
 
 ### Sprint 1 (2 weeks) - Foundation
-- PROJ-001 to PROJ-006
+- PROJ-001 to PROJ-007
 - AUTH-001 to AUTH-003
-- **Goal**: Basic project setup with authentication
+- **Goal**: Basic project setup with landing page and authentication
 
 ### Sprint 2 (2 weeks) - User Management
 - AUTH-004 to AUTH-006
