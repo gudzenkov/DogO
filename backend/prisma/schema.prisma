@@ -1,0 +1,269 @@
+// DogO - Dog Obedience Training Platform
+// Database Schema for users, lessons, progress tracking, and communications
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User roles enumeration
+enum Role {
+  OWNER
+  TRAINER
+  ADMIN
+}
+
+// Lesson difficulty levels
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+// Progress status enumeration
+enum ProgressStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+// User model - central entity for authentication and profile management
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  passwordHash String @map("password_hash")
+  role      Role     @default(OWNER)
+  firstName String?  @map("first_name")
+  lastName  String?  @map("last_name")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relationships
+  dogs         Dog[]
+  progress     Progress[]
+  reviews      Review[]
+  achievements UserAchievement[]
+  sentMessages Message[] @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
+  givenFeedback Feedback[] @relation("TrainerFeedback")
+  receivedFeedback Feedback[] @relation("UserFeedback")
+  notifications Notification[]
+  
+  // Trainer-specific relationships
+  createdLessons Lesson[] @relation("CreatedByTrainer")
+
+  @@map("users")
+}
+
+// Dog model - represents dogs owned by users
+model Dog {
+  id           Int      @id @default(autoincrement())
+  name         String
+  breed        String?
+  age          Int?
+  trainingLevel String?  @map("training_level")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Foreign key
+  userId       Int      @map("user_id")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Relationships  
+  progress     Progress[]
+
+  @@map("dogs")
+}
+
+// Category model - flat structure for lesson organization
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  sortOrder   Int      @map("sort_order")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relationships
+  lessons     Lesson[]
+
+  @@map("categories")
+}
+
+// Lesson model - core content with YouTube integration
+model Lesson {
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String?
+  youtubeVideoId String  @map("youtube_video_id")
+  difficulty  Difficulty @default(BEGINNER)
+  duration    Int?       // Duration in minutes
+  thumbnail   String?    // YouTube thumbnail URL
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
+
+  // Foreign keys
+  categoryId  Int        @map("category_id")
+  trainerId   Int        @map("trainer_id")
+
+  // Relationships
+  category    Category   @relation(fields: [categoryId], references: [id])
+  trainer     User       @relation("CreatedByTrainer", fields: [trainerId], references: [id])
+  progress    Progress[]
+  reviews     Review[]
+  feedback    Feedback[]
+  prerequisites LessonPrerequisite[] @relation("Lesson")
+  requiredFor LessonPrerequisite[] @relation("Prerequisite")
+
+  @@map("lessons")
+}
+
+// Lesson prerequisites - many-to-many relationship for lesson dependencies
+model LessonPrerequisite {
+  id             Int @id @default(autoincrement())
+  lessonId       Int @map("lesson_id")
+  prerequisiteId Int @map("prerequisite_id")
+
+  lesson         Lesson @relation("Lesson", fields: [lessonId], references: [id], onDelete: Cascade)
+  prerequisite   Lesson @relation("Prerequisite", fields: [prerequisiteId], references: [id], onDelete: Cascade)
+
+  @@unique([lessonId, prerequisiteId])
+  @@map("lesson_prerequisites")
+}
+
+// Progress model - detailed session tracking
+model Progress {
+  id            Int            @id @default(autoincrement())
+  status        ProgressStatus @default(NOT_STARTED)
+  notes         String?        // Rich text notes from training sessions
+  successCount  Int           @default(0) @map("success_count")
+  failureCount  Int           @default(0) @map("failure_count")  
+  sessionDuration Int?        @map("session_duration") // Duration in minutes
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+
+  // Foreign keys
+  userId        Int           @map("user_id")
+  dogId         Int           @map("dog_id")
+  lessonId      Int           @map("lesson_id")
+
+  // Relationships
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dog           Dog           @relation(fields: [dogId], references: [id], onDelete: Cascade)
+  lesson        Lesson        @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, dogId, lessonId])
+  @@map("progress")
+}
+
+// Review model - lesson ratings and feedback
+model Review {
+  id        Int      @id @default(autoincrement())
+  rating    Int      // 1-5 star rating
+  comment   String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Foreign keys
+  userId    Int      @map("user_id")
+  lessonId  Int      @map("lesson_id")
+
+  // Relationships
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+  @@map("reviews")
+}
+
+// Achievement model - badges and milestones
+model Achievement {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  badgeUrl    String?  @map("badge_url")
+  criteria    String?  // JSON string describing achievement criteria
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  // Relationships
+  users       UserAchievement[]
+
+  @@map("achievements")
+}
+
+// User achievements - many-to-many relationship
+model UserAchievement {
+  id            Int      @id @default(autoincrement())
+  earnedAt      DateTime @default(now()) @map("earned_at")
+
+  // Foreign keys
+  userId        Int      @map("user_id")
+  achievementId Int      @map("achievement_id")
+
+  // Relationships
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, achievementId])
+  @@map("user_achievements")
+}
+
+// Feedback model - trainer feedback to students
+model Feedback {
+  id        Int      @id @default(autoincrement())
+  message   String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Foreign keys
+  trainerId Int      @map("trainer_id")
+  userId    Int      @map("user_id")
+  lessonId  Int?     @map("lesson_id") // Optional - general feedback vs lesson-specific
+
+  // Relationships
+  trainer   User     @relation("TrainerFeedback", fields: [trainerId], references: [id], onDelete: Cascade)
+  user      User     @relation("UserFeedback", fields: [userId], references: [id], onDelete: Cascade)
+  lesson    Lesson?  @relation(fields: [lessonId], references: [id], onDelete: SetNull)
+
+  @@map("feedback")
+}
+
+// Message model - real-time messaging between users
+model Message {
+  id        Int      @id @default(autoincrement())
+  content   String
+  readAt    DateTime? @map("read_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Foreign keys
+  senderId   Int     @map("sender_id")
+  receiverId Int     @map("receiver_id")
+
+  // Relationships
+  sender     User    @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver   User    @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+// Notification model - in-app notifications
+model Notification {
+  id        Int      @id @default(autoincrement())
+  type      String   // e.g., 'feedback', 'achievement', 'message'
+  title     String
+  message   String
+  readAt    DateTime? @map("read_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Foreign key
+  userId    Int      @map("user_id")
+
+  // Relationships
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
