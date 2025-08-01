@@ -9,6 +9,7 @@ Before starting any task, Claude should review these key documents:
 - **BACKLOG.md**: Development tasks, priorities, and sprint planning
 
 ## Workflow Guidelines
+- Upon start - check Backlog status and be ready to proceed with next task as per priority
 - Once each individual task is complete, update @BACKLOG.md and commit changes separate for each backlog task ID
 
 ## Project Overview
