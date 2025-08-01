@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import logger from './utils/logger';
 import { errorHandler, notFound } from './middleware/errorHandler';
+import { apiLimiter } from './middleware/rateLimiting';
+import authRoutes from './routes/authRoutes';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -22,6 +24,9 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Apply rate limiting to all API routes
+app.use('/api', apiLimiter);
+
 app.get('/health', (req, res) => {
   res.json({ 
     status: 'OK', 
@@ -34,6 +39,9 @@ app.get('/health', (req, res) => {
 app.get('/api', (req, res) => {
   res.json({ message: 'DogO API Server' });
 });
+
+// Routes
+app.use('/api/auth', authRoutes);
 
 // Error handling middleware
 app.use(notFound);
