@@ -2,6 +2,15 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Required Reading
+Before starting any task, Claude should review these key documents:
+- **PRD.md**: Complete product requirements and user stories
+- **DESIGN.md**: System architecture and technical specifications
+- **BACKLOG.md**: Development tasks, priorities, and sprint planning
+
+## Workflow Guidelines
+- Once each task is complete, update @BACKLOG.md and commit changes with backlog task ID prefix
+
 ## Project Overview
 DogO is a dog obedience training platform that connects dog owners with professional trainers for structured online training. This is currently in the planning phase with no code implementation yet.
 
