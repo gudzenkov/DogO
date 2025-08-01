@@ -93,14 +93,15 @@
 - **As a user**, I want to reset my password if I forget it
 
 ### Backend Tasks
-- **AUTH-001**: Implement JWT authentication system
+- **AUTH-001**: Implement JWT authentication system ✅ **COMPLETED**
   - **Story Points**: 8
   - **Priority**: P0
   - **Acceptance Criteria**:
-    - JWT token generation and validation
-    - Refresh token mechanism
-    - Password hashing with bcrypt
+    - ✅ JWT token generation and validation
+    - ✅ Refresh token mechanism
+    - ✅ Password hashing with bcrypt
   - **Dependencies**: PROJ-003
+  - **Completed**: 2025-08-01
 
 - **AUTH-002**: User registration endpoint
   - **Story Points**: 5
