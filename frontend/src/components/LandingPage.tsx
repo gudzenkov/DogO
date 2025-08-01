@@ -56,15 +56,10 @@ const LandingPage = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-              <button className="group bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-2xl shadow-indigo-500/25 transition-all hover:shadow-3xl hover:shadow-indigo-500/40 hover:-translate-y-1">
-                <span className="flex items-center justify-center space-x-2">
-                  <span>Start Training Now</span>
-                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </span>
+              <button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg shadow-indigo-500/25 transition-all hover:shadow-xl hover:-translate-y-0.5">
+                Start Training Now
               </button>
-              <button className="bg-white/80 backdrop-blur-sm hover:bg-white text-indigo-600 border-2 border-indigo-200 hover:border-indigo-300 px-8 py-4 rounded-full text-lg font-semibold transition-all hover:shadow-xl hover:-translate-y-1">
+              <button className="bg-white/80 backdrop-blur-sm hover:bg-white text-indigo-600 border-2 border-indigo-200 hover:border-indigo-300 px-8 py-4 rounded-full text-lg font-semibold transition-all hover:shadow-lg hover:-translate-y-0.5">
                 I'm a Trainer
               </button>
             </div>
@@ -149,11 +144,8 @@ const LandingPage = () => {
                 <p className="text-gray-700 text-lg leading-relaxed">
                   Access professionally designed lessons organized by difficulty and training goals with video tutorials
                 </p>
-                <div className="mt-6 flex items-center text-indigo-600 font-semibold">
-                  <span>Learn more</span>
-                  <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
+                <div className="mt-6 text-indigo-600 font-semibold">
+                  Learn more →
                 </div>
               </div>
             </div>
@@ -167,11 +159,8 @@ const LandingPage = () => {
                 <p className="text-gray-700 text-lg leading-relaxed">
                   Record training sessions, track success rates, and monitor your dog's improvement with detailed analytics
                 </p>
-                <div className="mt-6 flex items-center text-emerald-600 font-semibold">
-                  <span>Learn more</span>
-                  <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
+                <div className="mt-6 text-emerald-600 font-semibold">
+                  Learn more →
                 </div>
               </div>
             </div>
@@ -185,11 +174,8 @@ const LandingPage = () => {
                 <p className="text-gray-700 text-lg leading-relaxed">
                   Get personalized guidance and tips from professional trainers based on your specific progress and challenges
                 </p>
-                <div className="mt-6 flex items-center text-purple-600 font-semibold">
-                  <span>Learn more</span>
-                  <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
+                <div className="mt-6 text-purple-600 font-semibold">
+                  Learn more →
                 </div>
               </div>
             </div>
@@ -296,15 +282,10 @@ const LandingPage = () => {
             Join thousands of dog owners who have transformed their pets' behavior with professional guidance
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="group bg-white hover:bg-gray-50 text-indigo-600 px-10 py-4 rounded-full text-lg font-bold shadow-2xl transition-all hover:shadow-3xl hover:-translate-y-1">
-              <span className="flex items-center justify-center space-x-2">
-                <span>Start Free Training</span>
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </span>
+            <button className="bg-white hover:bg-gray-50 text-indigo-600 px-10 py-4 rounded-full text-lg font-bold shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5">
+              Start Free Training
             </button>
-            <button className="border-2 border-white/50 backdrop-blur-sm hover:bg-white hover:text-indigo-600 text-white px-10 py-4 rounded-full text-lg font-bold transition-all hover:shadow-xl hover:-translate-y-1">
+            <button className="border-2 border-white/50 backdrop-blur-sm hover:bg-white hover:text-indigo-600 text-white px-10 py-4 rounded-full text-lg font-bold transition-all hover:shadow-lg hover:-translate-y-0.5">
               Become a Trainer
             </button>
           </div>
